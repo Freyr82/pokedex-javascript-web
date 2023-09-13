@@ -1,4 +1,8 @@
 
+const pokemonList = document.getElementById('pokemonList')
+const loadMoreButton = document.getElementById('loadMoreButton')
+const limit = 5
+let offset = 0;
 
 
 
@@ -19,25 +23,43 @@ function convertPokemonToLi(pokemon) {
     `
 }
 
-const pokemonList = document.getElementById('pokemonList')
+function loadPokemonItens(offset, limit) {
+    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+        const newHtml = pokemons.map(convertPokemonToLi).join('')
+        pokemonList.innerHTML += newHtml
+    })
+}
 
-pokeApi.getPokemons().then ((pokemons = []) => {
-        pokemonList.innerHTML += pokemons.map (convertPokemonToLi).join('')
+loadPokemonItens(offset, limit)
+
+loadMoreButton.addEventListener('click', (bu) => {
+    offset += limit
+    loadPokemonItens(offset, limit)
 })
-        // const newList = pokemons.map (convertPokemonToLi).join('')
-        // // (pokemon) => convertPokemonToLi(pokemon)
-        // const newHtml = newList
+
+
+
+
+
+
+
+// pokeApi.getPokemons().then ((pokemons = []) => {
+//         pokemonList.innerHTML += pokemons.map (convertPokemonToLi).join('')
+// })
+//         // const newList = pokemons.map (convertPokemonToLi).join('')
+//         // // (pokemon) => convertPokemonToLi(pokemon)
+//         // const newHtml = newList
 
         
         
-        // const listItems = []
+//         // const listItems = []
 
-        // for (let i = 0; i < pokemons.length; i++) {
-        //     const pokemon = pokemons[i];            
-        //     listItems.push(convertPokemonToLi(pokemon))
+//         // for (let i = 0; i < pokemons.length; i++) {
+//         //     const pokemon = pokemons[i];            
+//         //     listItems.push(convertPokemonToLi(pokemon))
             
-        // }
-        // console.log(listItems)
+//         // }
+//         // console.log(listItems)
     
         
     
